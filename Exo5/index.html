@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Récupération de données HTML-JS</title>
+</head>
+
+<body>
+    <form onsubmit="calculAge()">
+        <label for="name">Nom :</label>
+        <input type="text" name="name" id="name" placeholder="saisir le nom" required />
+        <label for="firstName">Prénom :</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Saisir le prénom" required />
+        <label for="birthDate">Date de naissance : </label>
+        <input type="date" name="birthDate" id="birthDate" required />
+        <button>Connaitre votre âge</button>
+    </form>
+</body>
+<script>
+    function calculAge() {
+        // On récupère toute les information du formulaire
+        let name = document.getElementById("name").value;
+        let firstName = document.getElementById("firstName").value;
+        let birthDate = new Date(document.getElementById("birthDate").value);
+        // On récupère la date du jour
+        let date = new Date();
+
+        //On divise les dates en 3 variables chacune
+        let birthDay = birthDate.getDate();
+        let birthMonth = birthDate.getMonth() + 1;
+        let birthYear = birthDate.getFullYear();
+
+        let dateDay = date.getDate();
+        let dateMonth = date.getMonth() + 1;
+        let dateYear = date.getFullYear();
+
+        // on fait la différence entre les deux, résultat récupéré en milliseconde
+        let diff = date - birthDate;
+        // On transforme les millisecondes en jours
+        let days = parseInt(diff / 1000 / 60 / 60 / 24);
+        // Puis les jours en années
+        let years = parseInt(days / 365.25);
+
+        // On compare le jour et le mois de l'anniversaire au jour et au mois actuel
+        let anniversaire = birthDay === dateDay && birthMonth === dateMonth;
+
+        // Définir si c'est l'anniversaire ou non
+        if (anniversaire && years === 1) {
+            alert(
+                "Joyeux anniversaire petit " +
+                firstName +
+                " " +
+                name +
+                " pour vos " +
+                years +
+                " an !!!"
+            );
+        } else if (anniversaire) {
+            alert(
+                "Joyeux anniversaire " +
+                firstName +
+                " " +
+                name +
+                " pour vos " +
+                years +
+                " ans !!!"
+            );
+        } else {
+            alert("Vous avez " + years + " ans.");
+        }
+    }
+
+    // function calculate_age(dob) { 
+    //     var diff_ms = Date.now() - dob.getTime();
+    //     var age_dt = new Date(diff_ms); 
+
+    //     return Math.abs(age_dt.getUTCFullYear() - 1970);
+    // }
+</script>
+
+</html>
